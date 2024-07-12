@@ -1,11 +1,19 @@
+import { useEffect } from "react";
 import { useState } from "react";
+
+const taskFromLocalStorage = JSON.parse(localStorage.getItem('task') || '[]')
 
 const ToDoList = () => {
 
-    const [tasks, setTasks] = useState([])
-
+    const [tasks, setTasks] = useState(taskFromLocalStorage)
     const [newTask, setNewTask] = useState('')
 
+
+    useEffect(()=>{
+        localStorage.setItem('task', JSON.stringify(tasks))
+
+    },[tasks])
+    
     const handleInputTask = (e) =>{
         setNewTask(e.target.value)
     }
